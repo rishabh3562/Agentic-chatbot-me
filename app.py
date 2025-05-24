@@ -7,7 +7,8 @@ from PyPDF2 import PdfReader
 
 # Load environment variable
 load_dotenv(override=True)
-api_key = os.environ['GOOGLE_API_KEY']
+api_key = os.environ.get('GOOGLE_API_KEY')
+# print(api_key)
 
 genai.configure(api_key=api_key)
 model = GenerativeModel("gemini-1.5-flash")
