@@ -1,7 +1,11 @@
 
-# Gemini Chatbot of Me
+# Gemini Chatbot of Users (Me)
 
 A simple AI chatbot that represents **Rishabh Dubey** by leveraging Google Gemini API, Gradio for UI, and context from **summary.txt** and **Profile.pdf**.
+
+## Screenshots
+![image](https://github.com/user-attachments/assets/c6d417df-aa6a-482e-9289-eeb8e9e0f3d2)
+
 
 ## Features
 - Loads background and profile data to answer questions in character.
