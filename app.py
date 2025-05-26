@@ -4,14 +4,11 @@ from google.generativeai import GenerativeModel
 import gradio as gr
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
-import threading
-import time
-import requests
 
 # Load environment variables
 load_dotenv()
 api_key = os.environ.get('GOOGLE_API_KEY')
-PING_URL=os.environ.get('PING_URL')
+
 # Configure Gemini
 genai.configure(api_key=api_key)
 model = GenerativeModel("gemini-1.5-flash")
@@ -55,20 +52,7 @@ def chat(message, history):
     response = model.generate_content([conversation])
     return response.text
 
-# Keep-alive ping
-def keep_alive():
-    while True:
-        try:
-            res = requests.get(PING_URL)
-            print(f"Ping status: {res.status_code}")
-        except Exception as e:
-            print(f"Error: {e}")
-        time.sleep(300)  # 5 minutes
-
 if __name__ == "__main__":
-    # Start keep-alive thread
-    threading.Thread(target=keep_alive, daemon=True).start()
-
-    # Launch Gradio app
+    # Make sure to bind to the port Render sets (default: 10000) for Render deployment
     port = int(os.environ.get("PORT", 10000))
-    gr.ChatInterface(chat, chatbot=gr.Chatbot(type="messages"), type="messages").launch(server_name="0.0.0.0", server_port=port)
+    gr.ChatInterface(chat, chatbot=gr.Chatbot()).launch(server_name="0.0.0.0", server_port=port)
